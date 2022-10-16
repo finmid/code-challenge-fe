@@ -1,0 +1,249 @@
+openapi: 3.0.3
+info:
+  title: api
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: auth
+    description: Authentication with JWT
+  - name: sme
+    description: SME stands for Small and Medium Enterprises, and represent the companies that work with us
+  - name: users
+    description: Each SME can have multiple users able to login and use our products
+  - name: transactions
+    description: Mock service of card transactions performed by Users
+paths:
+  /login:
+    post:
+      tags:
+        - auth
+      summary: Log in
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: gandalf.the.grey@test.com
+                password:
+                  type: string
+                  example: 123code
+      responses:
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
+
+        '200':
+          description: 'Successful login'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: |-
+                      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJpZCI6ImIzZjI3MWVmLWU3M2ItNGMxMi1hZDg1LTY2NWMzNjg2MDE3YSIsInNtZUlkIjoiNmZhMGVhNDEtOTI0OS00M2Q1LTg0NzktODFhZjZhNTViOTQ2IiwibmFtZSI6IkdhbmRhbGYgdGhlIEdyZXkiLCJlbWFpbCI6ImdhbmRhbGYudGhlLmdyZXlAdGVzdC5jb20iLCJwcm9maWxlSW1hZ2UiOiJodHRwOi8vbG9jYWxob3N0OjMwMDAvc3RhdGljL2dhbmRhbGYucG5nIn0sImlhdCI6MTY2NTkyMjE1MSwiZXhwIjoxNjk3NDc5NzUxfQ.a292jnxN2Nw5ltrShZigSF-dsz0dfkb0chxHFGbOUOA
+  /users:
+    get:
+      tags:
+        - users
+      summary: Returns users list
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+        '400':
+          description: Bad request, when the authorization is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+  /sme-data:
+    get:
+      tags:
+        - sme
+      summary: Get info on currently logged in SME
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: 'SME Data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SME'
+        '401':
+          description: Bad request. This is returned when the token doesn't get the correct authorization token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+  /transactions:
+    get:
+      tags:
+        - transactions
+      summary: Get a paginated or filtered list of transactions
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+          required: false
+          description: UUID of a specific user
+        - in: query
+          name: status
+          description: The status of the transactions we want to filter by.
+          schema:
+            type: string
+            enum:
+              - REJECTED
+              - PENDING
+              - COMPLETED
+              - REVERSED
+        - in: query
+          name: offset
+          schema:
+            type: number
+        - in: query
+          name: limit
+          description: Limits the list by a specific number. Sometimes called `perPage`
+          schema:
+            type: number
+      responses:
+        '200':
+          description: 'List of transactions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'b3f271ef-e73b-4c12-ad85-665c3686017a'
+        name:
+          type: string
+          example: 'Gandalf the Grey'
+        email:
+          type: string
+          example: 'gandalf.the.grey@test.com'
+        profileImage:
+          type: string
+          example: 'http://localhost:3000/static/gandalf.png'
+
+    SME:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 6fa0ea41-9249-43d5-8479-81af6a55b946
+        legalName:
+          type: string
+          example: Fellowship GmbH
+        businessType:
+          type: string
+          example: GMBH
+          enum:
+            - GMBH
+            - EINZELUNTERNEHMEN
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '59beb78c-4227-42d1-a1b5-9a8405ff3416'
+        smeId:
+          type: string
+          example: '5fb473af-2413-43ee-b899-7a4835ee607f'
+        amount:
+          type: string
+          example: '-98.11'
+        status:
+          type: string
+          example: COMPLETED
+          enum:
+            - REJECTED
+            - PENDING
+            - COMPLETED
+            - REVERSED
+        userId:
+          type: string
+          example: '58c0645c-ce36-4395-9658-9a654cd3f3f9'
+        transactionTime:
+          type: string
+          example: '2022-10-16T19:07:48.626Z'
+        merchantIconUrl:
+          type: string
+          example: 'http://localhost:3200/static/mi-lieferando.png'
+        merchantName:
+          type: string
+          example: 'Lieferando'
+        currency:
+          type: string
+          example: 'EUR'
+          enum:
+            - USD
+            - EUR
+        rejectionReason:
+          type: string
+          nullable: true
+          example: null
+          enum:
+            - NOT_PERMITTED
+            - INSUFFICIENT_FUNDS
+            - CARD_MONTHLY_LIMIT_REACHED
+            - CARD_DAILY_LIMIT_REACHED
+            - CARD_EXPIRED
+            - CARD_SUSPENDED
+            - CARD_NOT_ACTIVE
+            - INCORRECT_PIN
+
+    BadRequest:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Bad Request
+        message:
+          type: string
+
+    UnauthorizedError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Unauthorized
+        message:
+          type: string
+          example: Incorrect login or password
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

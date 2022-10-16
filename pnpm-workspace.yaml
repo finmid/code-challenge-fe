@@ -1,3 +1,4 @@
 packages:
   - 'packages/client'
-  - 'packages/auth'
+  - 'packages/api'
+  - 'packages/lib-common'
