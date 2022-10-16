@@ -1,0 +1,22 @@
+{
+  "name": "fe-vite-code-challenge",
+  "version": "1.0.0",
+  "private": "true",
+  "workspaces": [
+    "packages/client",
+    "packages/auth"
+  ],
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm -r run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "finmid",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.0",
+    "typescript": "^4.8.4"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@finmid/auth",
+  "private": "true",
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "4.17.14",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/node": "18.11.0",
+    "nodemon": "2.0.20",
+    "typescript": "4.8.4"
+  },
+  "scripts": {
+    "dev": "nodemon -- index.ts",
+    "create-data": "ts-node createData.ts"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "bcrypt": "5.1.0",
+    "cors": "2.8.5",
+    "express": "4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "ts-node": "10.9.1"
+  }
+}
