@@ -1,0 +1,4 @@
+packages:
+  - 'packages/client'
+  - 'packages/api'
+  - 'packages/lib-common'

@@ -1,0 +1,8 @@
+{
+  "name": "@finmid/lib-common",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "typescript": "4.8.4"
+  }
+}
