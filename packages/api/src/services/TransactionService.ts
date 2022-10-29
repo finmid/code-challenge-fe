@@ -49,21 +49,24 @@ export class TransactionService {
     return this;
   }
 
-  get() {
-    let result: Transaction[] = [...this.data];
-
-    result = result.filter((transaction) => {
+  filteredResults() {
+    return this.data.filter((transaction) => {
       if (this.smeId && this.smeId !== transaction.smeId) return false;
       if (this.status && this.status !== transaction.status) return false;
+      if (this.userId && this.userId !== transaction.userId) return false;
 
       return true;
     });
+  }
 
+  total() {
+    return this.filteredResults().length;
+  }
+
+  get() {
     const startIndex = this.offset;
     const endIndex = this.offset + this.limit;
 
-    result = result.slice(startIndex, endIndex);
-
-    return result;
+    return this.filteredResults().slice(startIndex, endIndex);
   }
 }

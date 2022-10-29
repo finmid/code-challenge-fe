@@ -31,13 +31,15 @@ const getTransactions = async (req: Request, res: Response) => {
     query: { status, userId, limit, offset },
   } = validateRequest(transactionQueryValidation, req);
 
-  const transactions = new TransactionService(data as Transaction[])
+  const service = new TransactionService(data as Transaction[])
     .setLimit(limit)
     .setSmeId(smeId)
     .setStatus(status)
     .setUserId(userId)
-    .setOffset(offset)
-    .get();
+    .setOffset(offset);
+
+  const transactions = service.get();
+  const total = service.total();
 
   res.status(200).json({
     data: transactions,
@@ -47,6 +49,7 @@ const getTransactions = async (req: Request, res: Response) => {
       status,
       userId,
       smeId,
+      total,
     },
   });
 };
