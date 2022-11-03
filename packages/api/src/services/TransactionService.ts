@@ -1,7 +1,7 @@
 import {
   Transaction,
   TransactionStatus,
-} from '@finmid/lib-common/types/Transaction';
+} from "@finmid/lib-common/types/Transaction";
 
 export class TransactionService {
   readonly data: Transaction[];
@@ -62,7 +62,10 @@ export class TransactionService {
     const startIndex = this.offset;
     const endIndex = this.offset + this.limit;
 
-    result = result.slice(startIndex, endIndex);
+    result = result.slice(startIndex, endIndex).filter((result) => {
+      if (this.userId) return this.userId === result.userId;
+      return result;
+    });
 
     return result;
   }
