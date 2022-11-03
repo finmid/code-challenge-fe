@@ -12,3 +12,8 @@
   width: 24px;
   height: 24px;
 }
+
+.transaction-data {
+  display: flex;
+  justify-content: space-between;
+}

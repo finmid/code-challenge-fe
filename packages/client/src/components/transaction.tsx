@@ -81,20 +81,18 @@ export default function TransactionView() {
         </svg>
       </Link>
       {transaction ? (
-        <div className="transaction-data">
-          <span>
+        <div>
+          <span className="transaction-data">
             <h3>Timestamp: </h3>
             <p>{formatedDate}</p>
           </span>
-          <span>
+          <span className="transaction-data">
             <h3>Transaction status: </h3>
             <p>{transaction.status}</p>
           </span>
-          <span>
+          <span className="transaction-data">
             <h3>Merchant: </h3>
-            <p>
-              {user?.name} {user?.id}
-            </p>
+            <p>{user?.name}</p>
           </span>
         </div>
       ) : (
