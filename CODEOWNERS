@@ -1,4 +1,2 @@
-
-/environment-stack/** @finmid/SRE
 * @finmid/Web
-
+/environment-stack/** @finmid/SRE
