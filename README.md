@@ -1,5 +1,5 @@
 # Finmid Challenge
 
 In this repository you can find the following challenges:
-- [Fullstack challenge](/Fullstack.md)
+- [Full-stack challenge](/Fullstack.md)
 - [Frontend challenge](/Frontend.md)
