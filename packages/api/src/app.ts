@@ -4,11 +4,12 @@ import { serve, setup } from 'swagger-ui-express';
 import yaml from 'yamljs';
 import { errorHandler, tokenParserMiddleware } from './middleware';
 import { AuthController } from './controllers';
-import { UsersController } from './controllers/UsersController';
+import { UsersController, SmesController } from 'src/controllers';
 import path from 'path';
-import { SmesController } from './controllers/SmesController';
 import { TransactionsController } from './controllers/TransactionsController';
 import { PORT } from './constants';
+import {schema} from "src/graphql";
+import {createYoga} from 'graphql-yoga'
 
 const app = express();
 app.use(cors());
@@ -27,6 +28,10 @@ app.get(
   tokenParserMiddleware,
   TransactionsController.getTransactions
 );
+
+// GraphQL
+const yoga = createYoga({schema})
+app.use(yoga.graphqlEndpoint, yoga)
 
 app.use(errorHandler);
 console.log('\n 🚀\x1b[33m finmid\x1b[90m mock API online\x1b[93m :) \x1b[0m');
