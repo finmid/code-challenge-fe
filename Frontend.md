@@ -19,6 +19,7 @@ The dashboard should not be accessible to the general public, and the user must 
   - Each transaction item must display:
     - Merchant name
     - Merchant icon
+    - Transaction status
     - Formatted date (`dd.mm.yyyy` format, so something like `16.03.2021`)
     - Formatted value with the correct currency
   - Clicking the transaction should open more details about it in a sidebar
