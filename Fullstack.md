@@ -63,7 +63,7 @@ There's also a security flaw in the API, can you identity what it is?
 
 ## Submission
 
-Clone this repository, and create a private repo with your submission in the `main` or `master` branch. The final solution must be merged into main branch. Please avoid pull requests. Next step is to add [@finmid-hr](https://github.com/finmid-hr) as collaborator. We will do our best to look into your code as soon as possible, but if for some reason we don't get back to you, please send us an email to [People Team](mailto:people@finmid.com).
+Clone this repository, and create a private repo with your submission in the `main` or `master` branch. The final solution must be merged into main branch. Please avoid pull requests. Next step is to add [@finmid-hr](https://github.com/finmid-hr) as collaborator. We will do our best to look into your code as soon as possible, but if for some reason we don't get back to you, please send us an email to [people@finmid.com](people@finmid.com).
 
 # The API
 
