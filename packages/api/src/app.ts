@@ -2,14 +2,21 @@ import express from 'express';
 import cors from 'cors';
 import { serve, setup } from 'swagger-ui-express';
 import yaml from 'yamljs';
-import { errorHandler, tokenParserMiddleware } from './middleware';
-import { AuthController } from './controllers';
-import { UsersController, SmesController } from 'src/controllers';
 import path from 'path';
-import { TransactionsController } from './controllers/TransactionsController';
+import { createYoga } from 'graphql-yoga';
+import {
+  errorHandler,
+  tokenParserMiddleware,
+  unreliableReads,
+} from './middleware';
+import {
+  AuthController,
+  CrewMembersController,
+  CrewsController,
+  JobsController,
+} from 'src/controllers';
 import { PORT } from './constants';
-import {schema} from "src/graphql";
-import {createYoga} from 'graphql-yoga'
+import { schema } from 'src/graphql';
 
 const app = express();
 app.use(cors());
@@ -21,17 +28,24 @@ const swaggerDocument = yaml.load(path.join(__dirname, 'swagger.yaml'));
 app.use('/docs', serve, setup(swaggerDocument));
 
 app.post('/login', AuthController.login);
-app.get('/users', tokenParserMiddleware, UsersController.getUsers);
-app.get('/sme-data', tokenParserMiddleware, SmesController.getSme);
 app.get(
-  '/transactions',
+  '/crew-members',
+  unreliableReads,
   tokenParserMiddleware,
-  TransactionsController.getTransactions
+  CrewMembersController.getCrewMembers
+);
+app.get('/crew', unreliableReads, tokenParserMiddleware, CrewsController.getCrew);
+app.get('/jobs', unreliableReads, tokenParserMiddleware, JobsController.getJobs);
+app.get(
+  '/jobs/:id',
+  unreliableReads,
+  tokenParserMiddleware,
+  JobsController.getJob
 );
 
 // GraphQL
-const yoga = createYoga({schema})
-app.use(yoga.graphqlEndpoint, yoga)
+const yoga = createYoga({ schema });
+app.use(yoga.graphqlEndpoint, unreliableReads, yoga);
 
 app.use(errorHandler);
 console.log('\n 🚀\x1b[33m finmid\x1b[90m mock API online\x1b[93m :) \x1b[0m');

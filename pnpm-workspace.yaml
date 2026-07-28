@@ -2,3 +2,7 @@ packages:
   - 'packages/client'
   - 'packages/api'
   - 'packages/lib-common'
+allowBuilds:
+  '@scarf/scarf': false
+  bcrypt: true
+  esbuild: true

@@ -1,12 +1,14 @@
-# Auth Service
+# Crew Ledger API
 
-This is a mock authentication service that uses Json Web Tokens (JWT). It will check `auth.json` and see if the user can login or not. To run:
+Mock API for the payout ledger. JSON files on disk, Express in front, JWT for auth.
+To run:
 
 ```
 $ pnpm run dev
 ```
 
-It will listen on `localhost:3000`.
+It will listen on `localhost:3000`. Swagger UI at `/docs`, GraphQL playground at
+`/graphql`.
 
 ## Token Structure
 
@@ -16,8 +18,11 @@ The JWT payload will have this structure:
 {
   "userData": {
     "id": "b3f271ef-e73b-4c12-ad85-665c3686017a",
-    "smeId": "6fa0ea41-9249-43d5-8479-81af6a55b946",
+    "crewId": "6fa0ea41-9249-43d5-8479-81af6a55b946",
     "name": "Gandalf the Grey",
+    "alias": "The Grey",
+    "role": "PLANNER",
+    "standing": "ACTIVE",
     "email": "gandalf.the.grey@test.com",
     "profileImage": "http://localhost:3000/static/gandalf.png"
   },
@@ -40,7 +45,7 @@ The JWT payload will have this structure:
 Responses:
 
 ```json
-// 403
+// 401
 
 {
   "message": "Incorrect login or password"
@@ -52,3 +57,7 @@ Responses:
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC...mdC8vCbRAxYYa-IupLqomZ8h_YqRPGJcFw7L4" // the JWT
 }
 ```
+
+## GraphQL
+
+Mid-migration. `crewMembers` is served from GraphQL, everything else is still REST.

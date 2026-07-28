@@ -1,3 +1,3 @@
 # lib-common
 
-This is a simple package to share code between the mock API services.
+Types shared between the mock API and the client.
