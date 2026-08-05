@@ -18,7 +18,7 @@ const jwtDecode = (token?: string | string[]): any | null => {
 type ParsedToken = {
   userData: {
     id: string;
-    smeId: string;
+    crewId: string;
     name: string;
     email: string;
     profileImage: string;
@@ -50,7 +50,7 @@ export const extractToken = (req: Request): ParsedToken => {
 
   const parsedToken = jwtDecode(token);
 
-  if (!parsedToken || !parsedToken.userData.id || !parsedToken.userData.smeId) {
+  if (!parsedToken || !parsedToken.userData.id || !parsedToken.userData.crewId) {
     throw badRequest('Token could not be parsed');
   }
 

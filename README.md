@@ -1,5 +1,5 @@
-# Finmid Challenge
+# finmid Challenge
 
-In this repository you can find the following challenges:
-- [Full-stack challenge](/Fullstack.md)
-- [Frontend challenge](/Frontend.md)
+The challenge lives in [CHALLENGE.md](/CHALLENGE.md). One task for everyone.
+
+Repo conventions for coding agents: [AGENTS.md](/AGENTS.md).

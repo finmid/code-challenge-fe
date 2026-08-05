@@ -1,3 +1,4 @@
 export * from './AuthController';
-export * from './SmesController';
-export * from './UsersController';
+export * from './CrewsController';
+export * from './CrewMembersController';
+export * from './JobsController';

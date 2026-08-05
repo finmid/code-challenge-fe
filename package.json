@@ -1,5 +1,5 @@
 {
-  "name": "fe-vite-code-challenge",
+  "name": "crew-ledger-code-challenge",
   "version": "1.0.0",
   "private": "true",
   "description": "",
@@ -8,7 +8,7 @@
     "start": "pnpm --filter \"@finmid/client\" run dev",
     "backend": "pnpm --filter \"@finmid/api\" run dev",
     "create-data": "pnpm --filter \"@finmid/api\" run create-data",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "pnpm --filter \"@finmid/api\" run test"
   },
   "keywords": [],
   "author": "finmid",
